@@ -46,4 +46,6 @@ int main(){
         pthread_join(tids[i], NULL);
 
     for(int i = 0 ; i < 3 ; i++) std::cout << i << ": " << count[i] << "\n";
+
+    return 0;
 }
