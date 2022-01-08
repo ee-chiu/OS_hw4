@@ -8,9 +8,11 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void* count_numbers(void* data){
     std::string s = *( (std::string*) data );
-    pthread_mutex_lock(&mutex);
-    for(int i = 0 ; i < (int) s.size() ; i++) count[s[i]-'0']++;
-    pthread_mutex_unlock(&mutex);
+    for(int i = 0 ; i < (int) s.size() ; i++) {
+        pthread_mutex_lock(&mutex);
+        count[s[i]-'0']++;
+        pthread_mutex_unlock(&mutex);
+    }
     pthread_exit(NULL);
 }
 

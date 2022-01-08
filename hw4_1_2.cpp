@@ -12,10 +12,12 @@ int finish = 0;
 
 void* count_numbers_0(void* data){
     std::string s = *( (std::string*) data );
-    pthread_mutex_lock(&count_mutex);
-    for(int i = 0 ; i < (int) s.size() ; i++) count[s[i]-'0']++;
+    for(int i = 0 ; i < (int) s.size() ; i++) {
+        pthread_mutex_lock(&count_mutex);
+        count[s[i]-'0']++;
+        pthread_mutex_unlock(&count_mutex);
+    }
     finish++;
-    pthread_mutex_unlock(&count_mutex);
     
     while(finish != 3) ;
     std::cout << "0: " << count[0] << "\n";
@@ -26,10 +28,12 @@ void* count_numbers_0(void* data){
 
 void* count_numbers_1(void* data){
     std::string s = *( (std::string*) data );
-    pthread_mutex_lock(&count_mutex);
-    for(int i = 0 ; i < (int) s.size() ; i++) count[s[i]-'0']++;
+    for(int i = 0 ; i < (int) s.size() ; i++) {
+        pthread_mutex_lock(&count_mutex);
+        count[s[i]-'0']++;
+        pthread_mutex_unlock(&count_mutex);
+    }
     finish++;
-    pthread_mutex_unlock(&count_mutex);
 
     pthread_mutex_lock(&mutex_0);
     std::cout << "1: " << count[1] << "\n";
@@ -40,10 +44,12 @@ void* count_numbers_1(void* data){
 
 void* count_numbers_2(void* data){
     std::string s = *( (std::string*) data );
-    pthread_mutex_lock(&count_mutex);
-    for(int i = 0 ; i < (int) s.size() ; i++) count[s[i]-'0']++;
+    for(int i = 0 ; i < (int) s.size() ; i++) {
+        pthread_mutex_lock(&count_mutex);
+        count[s[i]-'0']++;
+        pthread_mutex_unlock(&count_mutex);
+    }
     finish++;
-    pthread_mutex_unlock(&count_mutex);
 
     pthread_mutex_lock(&mutex_1);
     std::cout << "2: " << count[2] << "\n";
